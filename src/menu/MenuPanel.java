@@ -3,6 +3,7 @@ package menu;
 import server.Webserver;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,8 @@ import java.io.IOException;
 
 public class MenuPanel extends JPanel implements ActionListener {
 
+    private JButton startServer, stopServer,clear;
+    private Border defaultBorder;
     private JTextArea textArea;
 
     private Webserver webserver = null;
@@ -21,9 +24,21 @@ public class MenuPanel extends JPanel implements ActionListener {
         try { webserver = new Webserver(); }
         catch (IOException e) {  throw new RuntimeException(e); }
 
-        JButton startServer = new JButton("Start Server");
-        JButton stopServer = new JButton("Stop Server");
-        JButton clear = new JButton("Clear");
+        ButtonGroup buttonGroup = new ButtonGroup();
+
+        startServer = new JButton("Start Server");
+        stopServer = new JButton("Stop Server");
+        clear = new JButton("Clear");
+
+        defaultBorder = startServer.getBorder();
+
+        startServer.setOpaque(true);
+        stopServer.setOpaque(true);
+        clear.setOpaque(true);
+
+        buttonGroup.add(startServer);
+        buttonGroup.add(stopServer);
+        //buttonGroup.add(clear);
 
         startServer.setFont(new Font("Dialog", Font.PLAIN, 14));
         stopServer.setFont(new Font("Dialog", Font.PLAIN, 14));
@@ -39,7 +54,14 @@ public class MenuPanel extends JPanel implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e)
+    {
+        if(e.getActionCommand().contains("Start") || e.getActionCommand().contains("Stop"))
+        {
+            startServer.setBorder(defaultBorder);
+            stopServer.setBorder(defaultBorder);
+            ((JButton)e.getSource()).setBorder(BorderFactory.createLineBorder(Color.green, 3));
+        }
 
         System.out.println("Button "+e.getActionCommand()+" gedrueckt");
 
@@ -61,5 +83,7 @@ public class MenuPanel extends JPanel implements ActionListener {
                 {
                     textArea.setText("Ausgaben:\n");
                 }
+
+        repaint();
     }
 }
