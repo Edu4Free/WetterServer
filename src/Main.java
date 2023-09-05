@@ -31,11 +31,12 @@ public class Main
         maiframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         maiframe.setSize(640, 480);
 
-        OutputPanel outputpanel = new OutputPanel();
+        OutputPanel outputpanel = new OutputPanel(ipAdress);
+        //outputpanel.setHostAdress(ipAdress);
 
         maiframe.add(new MenuPanel(outputpanel.getTextArea()), BorderLayout.NORTH);
         maiframe.add(new JScrollPane(outputpanel), BorderLayout.CENTER);
-        maiframe.add(new CommandoPanel(outputpanel.getTextArea()), BorderLayout.SOUTH);
+        maiframe.add(new CommandoPanel(outputpanel.getTextArea(), ipAdress), BorderLayout.SOUTH);
 
         maiframe.setVisible(true);
     }

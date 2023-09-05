@@ -11,13 +11,22 @@ public class CommandoPanel extends JPanel implements KeyListener {
     private JTextField textField;
     private JTextArea textArea;
 
-    public CommandoPanel(JTextArea textArea)
+    public CommandoPanel(JTextArea textArea, String hostAdress)
     {
         this.textArea = textArea;
 
+        String adress = null;
+
+        if(hostAdress==null)
+            adress = "localhost";
+        else
+            adress = hostAdress;
+
+
+
         setLayout(new GridLayout(1,1));
 
-        textField = new JTextField("http://localhost:8000/weather?country=DE&postcode=50679&city=Koeln&data=all");
+        textField = new JTextField("http://"+adress+":8000/weather?country=DE&postcode=50679&city=Koeln&data=all");
         // textField = new JTextField("http://www.it-host.de/jserv/java/index.jsp?zugriff=wvsfst");
         // http://www.it-host.de/jserv/java/index.jsp?zugriff=wvsfst
 
