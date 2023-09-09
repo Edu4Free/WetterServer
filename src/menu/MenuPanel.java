@@ -38,7 +38,6 @@ public class MenuPanel extends JPanel implements ActionListener {
 
         buttonGroup.add(startServer);
         buttonGroup.add(stopServer);
-        //buttonGroup.add(clear);
 
         startServer.setFont(new Font("Dialog", Font.PLAIN, 14));
         stopServer.setFont(new Font("Dialog", Font.PLAIN, 14));

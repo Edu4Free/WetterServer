@@ -27,6 +27,7 @@ public class CommandoPanel extends JPanel implements KeyListener {
         setLayout(new GridLayout(1,1));
 
         textField = new JTextField("http://"+adress+":8000/weather?country=DE&postcode=50679&city=Koeln&data=all");
+        textField.setFont(new Font("Dialog", Font.PLAIN, 14));
         // textField = new JTextField("http://www.it-host.de/jserv/java/index.jsp?zugriff=wvsfst");
         // http://www.it-host.de/jserv/java/index.jsp?zugriff=wvsfst
 
