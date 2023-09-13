@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * Panel mit Textfeld zur Entgegennahme von Konsolenbefehlen
+ */
 public class CommandoPanel extends JPanel implements KeyListener {
     private JTextField textField;
     private JTextArea textArea;
@@ -22,13 +25,10 @@ public class CommandoPanel extends JPanel implements KeyListener {
         else
             adress = hostAdress;
 
-
-
         setLayout(new GridLayout(1,1));
 
         textField = new JTextField("http://"+adress+":8000/weather?country=DE&postcode=50679&city=Koeln&data=all");
         textField.setFont(new Font("Dialog", Font.PLAIN, 14));
-        // textField = new JTextField("http://www.it-host.de/jserv/java/index.jsp?zugriff=wvsfst");
         // http://www.it-host.de/jserv/java/index.jsp?zugriff=wvsfst
 
         textField.addKeyListener(this);
@@ -37,13 +37,11 @@ public class CommandoPanel extends JPanel implements KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
+    public void keyTyped(KeyEvent e) { }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-
+    public void keyPressed(KeyEvent e)
+    {
         System.out.println("keyPressed");
 
         if(e.getKeyCode()==KeyEvent.VK_ENTER)
@@ -56,15 +54,10 @@ public class CommandoPanel extends JPanel implements KeyListener {
 
             String result = connection.sendRequest(textField.getText());
 
-            // result = result.replace("\n", "\n\r");
-
             textArea.setText(textArea.getText()+"/"+result+"\n");
-            // textArea.setText(textArea.getText()+"/"+result+"\n");
         }
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
+    public void keyReleased(KeyEvent e) { }
 }
