@@ -15,9 +15,10 @@ import interfaces.WeatherData;
  */
 public class Webserver {
 
-    private HttpServer server = null;
+    private final int PORT_ADRESS = 8000;
+    private HttpServer server = null;   // Server-Instanz
 
-    WeatherData weather = new MyDummyWeather();
+    WeatherData weather = new MyDummyWeather(); // Auslesen von (Dummy) Wetterdaten
 
     public Webserver() throws IOException
     {
@@ -35,7 +36,7 @@ public class Webserver {
             try
             {
                 // Server-Instanz erzeugen, unter ANgabe des zu verwendenen Ports (8000)
-                server = HttpServer.create(new InetSocketAddress(8000), 0);
+                server = HttpServer.create(new InetSocketAddress(PORT_ADRESS), 0);
             }
             catch (IOException e)
             {
@@ -71,7 +72,7 @@ public class Webserver {
         @Override
         public void handle(HttpExchange t) throws IOException
         {
-            boolean test;
+            boolean test; // !! noch nicht weiter verwendet
             String response;
             String country,city, data;
             int plz = 0;
@@ -87,14 +88,12 @@ public class Webserver {
             // Durchführen der Wetteranfrage mit vorgegebenen Parametern
             test = weather.doRequest(country, plz, city, data);
 
-            // response = weather.getCSVData();
-
+            // Überprüfen, ob alle Daten oder nur die
+            // letzte Anfrage zurückgegeben werden soll
             if(data.contains("all"))
                 response = weather.getCSVData();
             else
                 response = weather.getLastCSVData();
-
-            // System.out.println("response="+response);
 
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
@@ -114,8 +113,10 @@ public class Webserver {
         String arr[] = null, split[];
         HashMap<String, String> hm = new HashMap<String, String>();
 
+        // Get-Daten in Array ablegen
         arr = httpRequest.substring(httpRequest.indexOf("?")+1).split("&");
 
+        // Einzelne Get-Parameter in Hashmap speichern
         for(String s :arr)
         {
             split = s.split("=");
@@ -123,5 +124,11 @@ public class Webserver {
         }
 
         return hm;
+    }
+
+    // Rückgabe des Webserver-Ports
+    public int getPortAdress()
+    {
+        return this.server.getAddress().getPort();
     }
 }

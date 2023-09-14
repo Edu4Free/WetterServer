@@ -14,10 +14,12 @@ public class Main
         LookAndFeel(); // System Look & Feel einstellen
 
         String ipAdress = ""; // IP Adresse des ausführenden Rechners
+        int portAdress = -1;
 
         // IP Adresse auslesen
         try {
             ipAdress = InetAddress.getLocalHost().getHostAddress();
+//            portAdress =  InetAddress.getLoopbackAddress(). getLocalHost().get
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);
         }
@@ -32,9 +34,15 @@ public class Main
         OutputPanel outputpanel = new OutputPanel(ipAdress);
         //outputpanel.setHostAdress(ipAdress);
 
-        maiframe.add(new MenuPanel(outputpanel.getTextArea()), BorderLayout.NORTH); // Panel mit drei Auswahl-Buttons
+        // Oberes Panel mit Auswahbuttons
+        MenuPanel menuPanel = new MenuPanel(outputpanel.getTextArea());
+
+        // Unteres Commandopanel, nimmt Anweisungen entgegen
+        CommandoPanel commandoPanel = new CommandoPanel(outputpanel.getTextArea(), ipAdress);
+
+        maiframe.add(menuPanel, BorderLayout.NORTH); // Panel mit drei Auswahl-Buttons zufügen
         maiframe.add(new JScrollPane(outputpanel), BorderLayout.CENTER);    // Outputpanel in Scrollfenster übergeben
-        maiframe.add(new CommandoPanel(outputpanel.getTextArea(), ipAdress), BorderLayout.SOUTH); // Panel für COmmandozeilen
+        maiframe.add(commandoPanel, BorderLayout.SOUTH); // Panel für Commandozeilen
 
         maiframe.setVisible(true);  // Hauptfenster sichtbar schalten
     }
