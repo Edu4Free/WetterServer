@@ -34,11 +34,11 @@ public class Main
         OutputPanel outputpanel = new OutputPanel(ipAdress);
         //outputpanel.setHostAdress(ipAdress);
 
-        // Oberes Panel mit Auswahbuttons
-        MenuPanel menuPanel = new MenuPanel(outputpanel.getTextArea());
-
         // Unteres Commandopanel, nimmt Anweisungen entgegen
         CommandoPanel commandoPanel = new CommandoPanel(outputpanel.getTextArea(), ipAdress);
+
+        // Oberes Panel mit Auswahbuttons
+        MenuPanel menuPanel = new MenuPanel(outputpanel.getTextArea(),commandoPanel.getTextField());
 
         maiframe.add(menuPanel, BorderLayout.NORTH); // Panel mit drei Auswahl-Buttons zufügen
         maiframe.add(new JScrollPane(outputpanel), BorderLayout.CENTER);    // Outputpanel in Scrollfenster übergeben

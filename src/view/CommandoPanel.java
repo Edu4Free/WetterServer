@@ -36,6 +36,8 @@ public class CommandoPanel extends JPanel implements KeyListener {
         add(textField);
     }
 
+    public JTextField getTextField() { return this.textField; }
+
     @Override
     public void keyTyped(KeyEvent e) { }
 

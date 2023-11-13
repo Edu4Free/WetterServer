@@ -18,6 +18,10 @@ public class Webserver {
     private final int PORT_ADRESS = 8000;
     private HttpServer server = null;   // Server-Instanz
 
+    private int port = PORT_ADRESS;
+
+    private boolean runMode = false;
+
     WeatherData weather = new MyDummyWeather(); // Auslesen von (Dummy) Wetterdaten
 
     public Webserver() throws IOException
@@ -36,7 +40,7 @@ public class Webserver {
             try
             {
                 // Server-Instanz erzeugen, unter ANgabe des zu verwendenen Ports (8000)
-                server = HttpServer.create(new InetSocketAddress(PORT_ADRESS), 0);
+                server = HttpServer.create(new InetSocketAddress(port), 0);
             }
             catch (IOException e)
             {
@@ -47,6 +51,8 @@ public class Webserver {
             server.createContext("/weather", new MyHandler());
             server.setExecutor(null); // creates a default executor
             server.start();
+
+            this.runMode = true;
         }
     }
 
@@ -61,6 +67,8 @@ public class Webserver {
             server.stop(2);
 
             server = null; // Server-Referenz auf null setzen
+
+            this.runMode = true;
         }
     }
 
@@ -131,4 +139,12 @@ public class Webserver {
     {
         return this.server.getAddress().getPort();
     }
+
+    public void setPortAdress(int port)
+    {
+        this.port = port;
+    }
+
+    public boolean isRunmode() { return runMode; }
 }
+
